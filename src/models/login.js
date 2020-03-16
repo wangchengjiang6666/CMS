@@ -9,6 +9,7 @@ export default {
   namespace: 'login',
   state: {
     status: undefined,
+    btnList: ['1_1-1', '1_1-2', '2_1-1', '2_2-2', '2_2-3', '7_3-1'],
   },
   effects: {
     *login({ payload }, { call, put }) {

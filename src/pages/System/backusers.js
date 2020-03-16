@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import StandardTable from '@/components/StandardTable';
 import styles from './backusers.less';
+import Btn from '../common/btn.js';
 import moment from 'moment';
 import {
   Modal,
@@ -19,7 +20,6 @@ import {
   Table,
   Divider,
 } from 'antd';
-
 @Form.create()
 class Backusers extends Component {
   //用户权限
@@ -45,62 +45,21 @@ class Backusers extends Component {
     },
     {
       title: '操作',
-      render: (text, record) => (
-        <Fragment>
-          <a onClick={() => this.showModal2(record)}>修改</a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              this.delete(record);
-            }}
-          >
-            删除
-          </a>
-        </Fragment>
-      ),
+      render: (text, record) => {
+        return (
+          <Fragment>
+            <Btn meths={this.showModal2} record={record} type="1">
+              <a>修改</a>
+            </Btn>
+            <Divider type="vertical" />
+            <Btn meths={this.delete} record={record} type="3">
+              <a>删除</a>
+            </Btn>
+          </Fragment>
+        );
+      },
     },
   ];
-  /*  columns2 = [
-    {
-      title: '菜单权限',
-      dataIndex: 'mp',
-      key: 'mp',
-    },
-    {
-      title: () => {
-        return (
-          <span>
-            <span className={styles.boxs}>
-              <Checkbox onChange={this.onCheckAllChange} checked={this.state.checkAll} />
-            </span>
-            操作权限
-          </span>
-        );
-      },
-      render: (text, record) => {
-        console.log(record);
-        this.filter(record);
-        this.state.plainOptions = [
-          { label: '查看', value: `${record.key}-1` },
-          { label: '添加', value: `${record.key}-2` },
-          { label: '编辑', value: `${record.key}-3` },
-          { label: '删除', value: `${record.key}-4` },
-        ];
-
-        return (
-          <Checkbox.Group
-            options={this.state.plainOptions}
-            defaultValue={[]}
-            onChange={this.onChange}
-            value={this.state.checkedList}
-          />
-        );
-      },
-      dataIndex: 'up',
-      key: 'up',
-    },
-  ]; */
-
   state = {
     name: '',
     phone: '',

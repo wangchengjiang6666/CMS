@@ -112,283 +112,187 @@ const mess = [
   { key: '2_1', mp: '投资账户' },
   { key: '2_2', mp: '奖金账户' },
 ];
-const allroutes = [
-  // user
+let allroutes = [
   {
-    path: '/user',
-    component: '../layouts/UserLayout',
+    key: '0',
+    path: '/dashboard',
+    name: 'dashboard',
+    icon: 'dashboard',
+  },
+  //用户管理
+  {
+    key: '1',
+    name: 'userPage',
+    icon: 'highlight',
+    path: '/userPage',
     routes: [
-      { path: '/user', redirect: '/user/login' },
-      { path: '/user/login', name: 'login', component: './User/Login' },
-      { path: '/user/register', name: 'register', component: './User/Register' },
       {
-        path: '/user/register-result',
-        name: 'register.result',
-        component: './User/RegisterResult',
+        key: '1_1',
+        path: '/userPage/search',
+        name: 'search',
+        icon: 'highlight',
       },
+
       {
-        component: '404',
+        key: '1_2',
+        name: 'role',
+        icon: 'highlight',
+        path: '/userPage/role',
       },
     ],
   },
-  // app
+  //账户管理
   {
-    path: '/',
-    component: '../layouts/BasicLayout',
-    Routes: ['src/pages/Authorized'],
+    key: '2',
+    path: '/accountPage',
+    icon: 'form',
+    name: 'accountPage',
+    authority: ['admin', 'user'],
     routes: [
-      // dashboard
       {
-        key: '0',
-        path: '/',
-        redirect: '/dashboard',
-        authority: ['admin', 'user'],
-        component: './Dashboard/Analysis.js',
+        key: '2_1',
+        path: '/accountPage/investor',
+        name: 'investor',
       },
       {
-        key: '0',
-        path: '/dashboard',
-        name: 'dashboard',
-        icon: 'dashboard',
-        component: './Dashboard/Analysis',
-      },
-      //用户管理
-      {
-        key: '1',
-        name: 'userPage',
-        icon: 'highlight',
-        path: '/userPage',
-        routes: [
-          {
-            key: '1_1',
-            path: '/userPage/search',
-            name: 'search',
-            icon: 'highlight',
-            component: './UsersPage/Search/accountmes.js',
-          },
-
-          {
-            key: '1_2',
-            name: 'role',
-            icon: 'highlight',
-            path: '/userPage/role',
-          },
-        ],
-      },
-      //账户管理
-      {
-        key: '2',
-        path: '/accountPage',
-        icon: 'form',
-        name: 'accountPage',
-        authority: ['admin', 'user'],
-        routes: [
-          {
-            key: '2_1',
-            path: '/accountPage/investor',
-            name: 'investor',
-            component: './AccountPage/investor.js',
-          },
-          {
-            key: '2_2',
-            path: '/accountPage/bonus',
-            name: 'bonus',
-            component: './AccountPage/bonus.js',
-          },
-          {
-            key: '2_3',
-            path: '/accountPage/hedge',
-            name: 'hedge',
-            component: './AccountPage/hedge.js',
-          },
-          {
-            key: '2_4',
-            path: '/accountPage/token',
-            name: 'token',
-            component: './AccountPage/token.js',
-          },
-        ],
-      },
-      //套餐管理
-      {
-        key: '3',
-        path: '/treamPage',
-        icon: 'form',
-        name: 'treamPage',
-        routes: [
-          {
-            key: '3_1',
-            path: '/treamPage/treammes',
-            name: 'treammes',
-            component: './TreamPage/treammes.js',
-          },
-          {
-            key: '3_2',
-            path: '/treamPage/treamhe',
-            name: 'treamhe',
-            component: './TreamPage/treamhe.js',
-          },
-        ],
-      },
-      //质押管理
-      {
-        key: '4',
-        path: '/pledgePage',
-        icon: 'form',
-        name: 'pledgePage',
-        routes: [
-          {
-            key: '4_1',
-            path: '/pledgePage/pledgetable',
-            name: 'pledgetable',
-            component: './PledgePage/pledgetable.js',
-          },
-          { path: '/pledgePage/pledgehe', name: 'pledgehe', component: './PledgePage/pledgehe.js' },
-        ],
-      },
-      //私塾管理
-      {
-        key: '5',
-        path: '/pesonalPage',
-        icon: 'form',
-        name: 'pesonalPage',
-        routes: [
-          {
-            key: '5_1',
-            path: '/pesonalPage/media',
-            name: 'media',
-            component: './PesonalPage/media.js',
-          },
-        ],
-      },
-      //数据统计
-      {
-        key: '6',
-        path: '/dataPage',
-        icon: 'form',
-        name: 'dataPage',
-        routes: [
-          {
-            key: '6_1',
-            path: '/dataPage/recharge',
-            name: 'recharge',
-            component: './DataPage/recharge.js',
-          },
-          {
-            key: '6_2',
-            path: '/dataPage/withdraw',
-            name: 'withdraw',
-            component: './DataPage/withdraw.js',
-          },
-          {
-            key: '6_3',
-            path: '/dataPage/setmeal',
-            name: 'setmeal',
-            component: './DataPage/setmeal.js',
-          },
-          { key: 64, path: '/dataPage/job', name: 'job', component: './DataPage/job.js' },
-        ],
-      },
-      //系统配置
-      {
-        key: '7',
-        path: '/system',
-        icon: 'form',
-        name: 'system',
-        routes: [
-          {
-            key: '7_1',
-            path: '/system/diction',
-            name: 'diction',
-            component: './System/diction.js',
-          },
-          {
-            key: '7_2',
-            path: '/system/lessee',
-            name: 'lessee',
-            component: './System/lessee.js',
-          },
-
-          {
-            key: '7_3',
-            path: '/system/backusers',
-            name: 'backusers',
-            icon: 'form',
-            component: './System/backusers.js',
-          },
-        ],
+        key: '2_2',
+        path: '/accountPage/bonus',
+        name: 'bonus',
       },
       {
-        key: '0',
-        path: '/UsersPage/Search/detail',
-        component: './UsersPage/Search/detail.js',
+        key: '2_3',
+        path: '/accountPage/hedge',
+        name: 'hedge',
       },
       {
-        key: '0',
-        component: '404',
+        key: '2_4',
+        path: '/accountPage/token',
+        name: 'token',
       },
     ],
+  },
+  //套餐管理
+  {
+    key: '3',
+    path: '/treamPage',
+    icon: 'form',
+    name: 'treamPage',
+    routes: [
+      {
+        key: '3_1',
+        path: '/treamPage/treammes',
+        name: 'treammes',
+      },
+      {
+        key: '3_2',
+        path: '/treamPage/treamhe',
+        name: 'treamhe',
+      },
+    ],
+  },
+  //质押管理
+  {
+    key: '4',
+    path: '/pledgePage',
+    icon: 'form',
+    name: 'pledgePage',
+    routes: [
+      {
+        key: '4_1',
+        path: '/pledgePage/pledgetable',
+        name: 'pledgetable',
+      },
+      {
+        key: '4_2',
+        path: '/pledgePage/pledgehe',
+        name: 'pledgehe',
+      },
+    ],
+  },
+  //私塾管理
+  {
+    key: '5',
+    path: '/pesonalPage',
+    icon: 'form',
+    name: 'pesonalPage',
+    routes: [
+      {
+        key: '5_1',
+        path: '/pesonalPage/media',
+        name: 'media',
+      },
+    ],
+  },
+  //数据统计
+  {
+    key: '6',
+    path: '/dataPage',
+    icon: 'form',
+    name: 'dataPage',
+    routes: [
+      {
+        key: '6_1',
+        path: '/dataPage/recharge',
+        name: 'recharge',
+      },
+      {
+        key: '6_2',
+        path: '/dataPage/withdraw',
+        name: 'withdraw',
+      },
+      {
+        key: '6_3',
+        path: '/dataPage/setmeal',
+        name: 'setmeal',
+      },
+      { key: 64, path: '/dataPage/job', name: 'job' },
+    ],
+  },
+  //系统配置
+  {
+    key: '7',
+    path: '/system',
+    icon: 'form',
+    name: 'system',
+    routes: [
+      {
+        key: '7_1',
+        path: '/system/diction',
+        name: 'diction',
+      },
+      {
+        key: '7_2',
+        path: '/system/lessee',
+        name: 'lessee',
+      },
+
+      {
+        key: '7_3',
+        path: '/system/backusers',
+        name: 'backusers',
+        icon: 'form',
+      },
+      {
+        path: '/system/roleset',
+        name: 'roleset',
+      },
+    ],
+  },
+  {
+    key: '0',
+    component: '404',
   },
 ];
 const fileroute = mess => {
-  let arr1 = [
-    // user
-    {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        { path: '/user', redirect: '/user/login' },
-        { path: '/user/login', name: 'login', component: './User/Login' },
-        { path: '/user/register', name: 'register', component: './User/Register' },
-        {
-          path: '/user/register-result',
-          name: 'register.result',
-          component: './User/RegisterResult',
-        },
-        {
-          component: '404',
-        },
-      ],
-    },
-    // app
-    {
-      path: '/',
-      component: '../layouts/BasicLayout',
-      Routes: ['src/pages/Authorized'],
-      routes: [
-        // dashboard
-        {
-          path: '/',
-          redirect: '/dashboard',
-          authority: ['admin', 'user'],
-          component: './Dashboard/Analysis.js',
-        },
-        {
-          path: '/dashboard',
-          name: 'dashboard',
-          icon: 'dashboard',
-          component: './Dashboard/Analysis',
-        },
-      ],
-    },
-  ];
-  console.log(allroutes);
-  let arr2 = allroutes[1].routes;
-  let arr3 = [];
-  console.log(arr2);
+  let arr = [];
   let newmess = mess.map(e => e.key);
   console.log(newmess);
-  arr2.forEach((item, index) => {
-    /*  mess.forEach((i,j)=>{
-      if(item.key)
-    }) */
+  allroutes.forEach((item, index) => {
     if (newmess.includes(item.key) || item.key == '0') {
-      // arr2.splice(index, 1);
-      arr3.push(item);
+      arr.push(item);
     }
   });
-
-  arr3.forEach((v, index) => {
+  arr.forEach((v, index) => {
     let arr4 = [];
     if (v.routes) {
       v.routes.forEach((i, j) => {
@@ -399,36 +303,7 @@ const fileroute = mess => {
       v.routes = arr4;
     }
   });
-  /*  arr2.forEach(item => {
-    if (item.routes) {
-      item.routes.forEach(val => {
-        arr3.push(val);
-      });
-    } else {
-      arr3.push(item);
-    }
-  }); */
-  /* arr2.forEach((item, index) => {
-    mess.forEach(j => {
-      if (item.key !== j.key && item.key !== 0) {
-        console.log(arr2[index]);
-        arr2.splice(index, 1);
-      }
-    });
-  }); */
-  /*  mess = mess.map(e => e.key);
-  let arr4 = [];
-  console.log(mess);
-  arr2.filter((item, index) => {
-     if (!(!mess.includes(item.key) && item.key !== 0)) {
-      return item;
-
-    }
-    return !mess.includes(item.key) && item.key !== 0;
-  }); */
-  console.log(arr2);
-  console.log(arr3);
-  allroutes[1].routes = arr3;
+  allroutes = arr;
   console.log(allroutes);
 };
 fileroute(mess);
@@ -493,17 +368,18 @@ export default {
 
   effects: {
     *getMenuData({ payload }, { put }) {
-      //const { routes, authority, path } = payload;
-      const { authority, path } = payload;
-      const routes = allroutes;
-      console.log(routes);
+      const { routes, authority, path } = payload;
+      //const { authority, path } = payload;
+      //const routes = allroutes;
+      // console.log(routes);
+      //console.log(allroutes);
       const originalMenuData = memoizeOneFormatter(routes, authority, path);
-      // const menuData = filterMenuData(originalMenuData);
+      const menuData = filterMenuData(originalMenuData);
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(originalMenuData);
       yield put({
         type: 'save',
-        // payload: { menuData, breadcrumbNameMap, routerData: routes },
-        payload: { menuData: originalMenuData, breadcrumbNameMap, routerData: routes },
+        payload: { menuData, breadcrumbNameMap, routerData: routes },
+        //payload: { menuData: originalMenuData, breadcrumbNameMap, routerData: routes },
       });
     },
   },
