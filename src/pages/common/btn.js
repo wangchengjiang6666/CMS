@@ -60,7 +60,7 @@ class Btn extends Component {
   isRun = () => {
     message.destroy();
     let flog = this.state.passBtn.includes(this.props.type);
-    if (flog) {
+    if (true) {
       this.props.meths(this.props.record);
     } else {
       error();

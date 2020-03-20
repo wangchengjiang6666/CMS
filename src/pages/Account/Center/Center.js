@@ -22,6 +22,7 @@ class Center extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
+
     dispatch({
       type: 'user/fetchCurrent',
     });
@@ -35,7 +36,9 @@ class Center extends PureComponent {
       type: 'project/fetchNotice',
     });
   }
-
+  componentDidUpdate() {
+    console.log(this.props);
+  }
   onTabChange = key => {
     const { match } = this.props;
     switch (key) {

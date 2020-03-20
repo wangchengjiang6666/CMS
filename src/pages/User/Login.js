@@ -66,7 +66,9 @@ class LoginPage extends Component {
   renderMessage = content => (
     <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
   );
-
+  push = () => {
+    this.props.history.push('/user/getpassword');
+  };
   render() {
     const { login, submitting } = this.props;
     const { type, autoLogin } = this.state;
@@ -150,7 +152,7 @@ class LoginPage extends Component {
             <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               <FormattedMessage id="app.login.remember-me" />
             </Checkbox>
-            <a style={{ float: 'right' }} href="">
+            <a style={{ float: 'right' }} onClick={this.push}>
               <FormattedMessage id="app.login.forgot-password" />
             </a>
           </div>

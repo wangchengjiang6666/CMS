@@ -32,11 +32,10 @@ const IntroduceRow = memo(({ loading, visitData }) => {
   const [app, setApp] = useState(0);
   const [usnum, setUsnum] = useState(8777);
   const [mofnum, setMofnum] = useState(72978);
-  useEffect(() => {
+  /*  useEffect(() => {
     axois
       .post('/url/rest/tBackAdminAcct/HCAmount')
       .then(res => {
-        console.log(res);
         let num = Number(res.data.data);
         setHc(num.toFixed(4));
       })
@@ -46,8 +45,6 @@ const IntroduceRow = memo(({ loading, visitData }) => {
   }, []);
   useEffect(() => {
     axois.post('/url/rest/tBackAdminAcct/UMEAmount').then(res => {
-      console.log(res);
-      console.log(res.data.data.result);
       let respon = res.data.data.result;
       if (respon) {
         let num1 = respon[0].balance / Math.pow(10, respon[0].decimals);
@@ -61,14 +58,12 @@ const IntroduceRow = memo(({ loading, visitData }) => {
   }, []);
   useEffect(() => {
     axois.post('/url/rest/tBackAdminAcct/emailAmount').then(res => {
-      console.log(res);
-      console.log(res.data.data.balance);
       let respon = res.data.data;
       if (respon) {
         setMail(respon.balance);
       }
     });
-  }, []);
+  }, []); */
   return (
     <div className="myPipe">
       <h3>余额监控</h3>

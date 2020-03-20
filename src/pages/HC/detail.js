@@ -498,7 +498,6 @@ class Count extends Component {
               <Table columns={this.columns4} dataSource={this.data4} bordered />
             </TabPane>
           </Tabs>
-          ,
         </div>
       </div>
     );

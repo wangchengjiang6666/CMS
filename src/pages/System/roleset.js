@@ -16,6 +16,7 @@ import {
   AutoComplete,
   Table,
   Divider,
+  message,
 } from 'antd';
 const { Option } = Select;
 class Roleset extends Component {
@@ -84,9 +85,11 @@ class Roleset extends Component {
       key: 'action',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
+          <a onClick={() => this.showModal2(record)}>修改</a>
           <Divider type="vertical" />
-          <a href="">删除</a>
+          <a href="" onClick={() => this.delete(record)}>
+            删除
+          </a>
         </Fragment>
       ),
     },
@@ -114,12 +117,15 @@ class Roleset extends Component {
   state = {
     inputval: '',
     visible: false,
+    visible2: false,
     loading: false,
     plainOptions: [],
     actionPre: [],
     checkedList: [],
     checkAll: false,
     selectedRows: [],
+    selectedRowKeys: [],
+    currentRole: '',
     data2: [
       {
         key: '1',
@@ -171,7 +177,6 @@ class Roleset extends Component {
         ],
       },
     ],
-    selectedRowKeys: [],
   };
   filter = record => {
     console.log(record);
@@ -223,7 +228,10 @@ class Roleset extends Component {
       visible: true,
     });
   };
-
+  delete = record => {
+    message.destroy();
+    message.success('删除成功');
+  };
   handleOk = e => {
     console.log(e);
     this.setState({
@@ -235,6 +243,27 @@ class Roleset extends Component {
     console.log(e);
     this.setState({
       visible: false,
+    });
+  };
+  showModal2 = record => {
+    console.log(record);
+    this.setState({
+      visible2: true,
+      currentRole: record.role,
+    });
+  };
+
+  handleOk2 = e => {
+    console.log(e);
+    this.setState({
+      visible2: false,
+    });
+  };
+
+  handleCancel2 = e => {
+    console.log(e);
+    this.setState({
+      visible2: false,
     });
   };
   //重新生成带有结构的数组
@@ -274,10 +303,10 @@ class Roleset extends Component {
   };
   render() {
     const { loading, selectedRowKeys, autoCompleteResult } = this.state;
-    const rowSelection = {
+    /*  const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
-    };
+    }; */
     const rowSelection2 = {
       onChange: (selectedRowKeys, selectedRows) => {
         this.setState({
@@ -295,15 +324,12 @@ class Roleset extends Component {
         console.log(selected, selectedRows, changeRows);
       },
     };
-    const hasSelected = selectedRowKeys.length > 0;
+    /*   const hasSelected = selectedRowKeys.length > 0; */
     return (
       <div>
         <PageHeaderWrapper>
           <div className={styles.myform}>
             <Row gutter={8}>
-              {/* <Col span={8}>
-                <Input value={this.inputval} onChange={this.changval} placeholder="角色名称" />
-              </Col> */}
               <span>全部角色：</span>
               <Select
                 style={{ width: 200, marginRight: 20 }}
@@ -333,6 +359,30 @@ class Roleset extends Component {
           <div>
             <div className={styles.myinput}>
               <Input placeholder="请输入新角色名称" style={{ width: 200 }}></Input>
+            </div>
+            <div>
+              <h3>权限分配</h3>
+              <div>
+                <Table
+                  rowSelection={rowSelection2}
+                  columns={this.columns2}
+                  dataSource={this.state.data2}
+                  pagination={false}
+                />
+              </div>
+            </div>
+          </div>
+        </Modal>
+        <Modal
+          title="角色权限修改"
+          visible={this.state.visible2}
+          onOk={this.handleOk2}
+          onCancel={this.handleCancel2}
+          width="900px"
+        >
+          <div>
+            <div className={styles.myinput}>
+              <Input style={{ width: 200 }} value={this.state.currentRole}></Input>
             </div>
             <div>
               <h3>权限分配</h3>

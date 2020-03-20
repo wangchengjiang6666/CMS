@@ -37,32 +37,22 @@ const FormOne = Form.create({ name: 'form1' })(
       return (
         <Form className={styles.myform}>
           <Row>
-            <FormItem label="币种">
-              {getFieldDecorator('type')(<Input placeholder="输入币种" />)}
+            <FormItem label="产品编号">
+              {getFieldDecorator('userID')(<Input placeholder="输入产品编号" />)}
             </FormItem>
-            <FormItem label="价格">
-              {getFieldDecorator('price')(<Input placeholder="输入价格范围" />)}
+            <FormItem label="产品名称">
+              {getFieldDecorator('username')(<Input placeholder="输入产品名称" />)}
             </FormItem>
-            {/* <FormItem label="是否显示行情">
-              {getFieldDecorator('market', {
+            <FormItem label="最低投资额">
+              {getFieldDecorator('min1', {
                 rules: [{ validator: this.checkNumber }],
               })(<Input placeholder="输入投资额" />)}
             </FormItem>
-            <FormItem label="是否可充值">
-              {getFieldDecorator('recharge', {
+            <FormItem label="最高投资额">
+              {getFieldDecorator('max1', {
                 rules: [{ validator: this.checkNumber }],
               })(<Input placeholder="输入投资额" />)}
             </FormItem>
-            <FormItem label="是否可提现">
-              {getFieldDecorator('cash', {
-                rules: [{ validator: this.checkNumber }],
-              })(<Input placeholder="输入投资额" />)}
-            </FormItem>
-            <FormItem label="手续费">
-              {getFieldDecorator('tip', {
-                rules: [{ validator: this.checkNumber }],
-              })(<Input placeholder="输入投资额" />)}
-            </FormItem> */}
             <FormItem className={styles.btn}>
               <Button type="primary" onClick={this.props.handleReset}>
                 重置
@@ -113,28 +103,28 @@ const FormTwo = Form.create({ name: 'form2' })(
         >
           <div>
             <Form {...formItemLayout} className={styles.down}>
-              <Form.Item label="币种">
-                {getFieldDecorator('type', {
+              <Form.Item label="产品编号">
+                {getFieldDecorator('pronum', {
                   rules: [
                     {
                       required: true,
-                      message: '请输入币种',
+                      message: '请输入产品编号',
                     },
                   ],
                 })(<Input />)}
               </Form.Item>
-              <Form.Item label="价格">
-                {getFieldDecorator('price', {
+              <Form.Item label="产品名称">
+                {getFieldDecorator('proname', {
                   rules: [
                     {
                       required: true,
-                      message: '请输入价格范围',
+                      message: '请输入产品名称',
                     },
                   ],
                 })(<Input />)}
               </Form.Item>
-              <Form.Item label="是否显示行情">
-                {getFieldDecorator('market', {
+              <Form.Item label="最低投资额">
+                {getFieldDecorator('min2', {
                   rules: [
                     {
                       required: true,
@@ -144,30 +134,8 @@ const FormTwo = Form.create({ name: 'form2' })(
                   ],
                 })(<Input />)}
               </Form.Item>
-              <Form.Item label="是否可充值">
+              <Form.Item label="最高投资额">
                 {getFieldDecorator('max2', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入最高投资额',
-                    },
-                    { validator: this.checkNumber },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="是否可提现">
-                {getFieldDecorator('cash', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入最高投资额',
-                    },
-                    { validator: this.checkNumber },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="手续费">
-                {getFieldDecorator('tip', {
                   rules: [
                     {
                       required: true,
@@ -218,31 +186,31 @@ const FormTree = Form.create({ name: 'form3' })(
         >
           <div>
             <Form {...formItemLayout} className={styles.down}>
-              <Form.Item label="币种">
-                {getFieldDecorator('type', {
+              <Form.Item label="产品编号">
+                {getFieldDecorator('pronum2', {
+                  initialValue: this.props.layRecord ? this.props.layRecord.username : '',
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入产品编号',
+                    },
+                  ],
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item label="产品名称">
+                {getFieldDecorator('proname2', {
                   initialValue: this.props.layRecord ? this.props.layRecord.type : '',
                   rules: [
                     {
                       required: true,
-                      message: '请输入币种',
+                      message: '请输入产品名称',
                     },
                   ],
                 })(<Input />)}
               </Form.Item>
-              <Form.Item label="价格">
-                {getFieldDecorator('price', {
-                  initialValue: this.props.layRecord ? this.props.layRecord.price : '',
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入价格范围',
-                    },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="是否显示行情">
-                {getFieldDecorator('market', {
-                  initialValue: this.props.layRecord ? this.props.layRecord.market : '',
+              <Form.Item label="最低投资额">
+                {getFieldDecorator('min3', {
+                  initialValue: this.props.layRecord ? this.props.layRecord.money : '',
                   rules: [
                     {
                       required: true,
@@ -252,33 +220,9 @@ const FormTree = Form.create({ name: 'form3' })(
                   ],
                 })(<Input />)}
               </Form.Item>
-              <Form.Item label="是否可充值">
-                {getFieldDecorator('recharge', {
-                  initialValue: this.props.layRecord ? this.props.layRecord.recharge : '',
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入最高投资额',
-                    },
-                    { validator: this.checkNumber },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="是否可提现">
-                {getFieldDecorator('cash', {
-                  initialValue: this.props.layRecord ? this.props.layRecord.cash : '',
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入最高投资额',
-                    },
-                    { validator: this.checkNumber },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="手续费">
-                {getFieldDecorator('tip', {
-                  initialValue: this.props.layRecord ? this.props.layRecord.tip : '',
+              <Form.Item label="最高投资额">
+                {getFieldDecorator('max3', {
+                  initialValue: this.props.layRecord ? this.props.layRecord.adress : '',
                   rules: [
                     {
                       required: true,
@@ -303,35 +247,25 @@ class Investor extends Component {
   };
   columns = [
     {
-      title: '币种',
+      title: '产品编号',
+      dataIndex: 'username',
+      key: 'username',
+    },
+    {
+      title: '产品名称',
       dataIndex: 'type',
       key: 'type',
     },
     {
-      title: '价格浮动',
-      dataIndex: 'price',
-      key: 'price',
-    },
-    {
-      title: '是否显示行情',
-      dataIndex: 'market',
-      key: 'market',
+      title: '最低投资额',
+      dataIndex: 'money',
+      key: 'money',
     },
 
     {
-      title: '是否可充值',
-      dataIndex: 'recharge',
-      key: 'recharge',
-    },
-    {
-      title: '是否可提现',
-      dataIndex: 'cash',
-      key: 'cash',
-    },
-    {
-      title: '手续费',
-      dataIndex: 'tip',
-      key: 'tip',
+      title: '最高投资额',
+      dataIndex: 'adress',
+      key: 'adress',
     },
     {
       title: '操作',
@@ -354,39 +288,35 @@ class Investor extends Component {
   data = [
     {
       key: '1',
-      tip: '2000',
-      cash: '否',
-      recharge: '是',
-      market: '是',
-      price: '4455555',
+      username: 'John Brown',
+      time: 12132545646,
+      adress: 'fdfffffff',
+      money: '4455555',
       type: 'HC',
     },
     {
       key: '2',
-      tip: '2000',
-      cash: '否',
-      recharge: '是',
-      market: '是',
-      price: '4455555',
+      username: 'John Brown',
+      time: 12132545646,
+      adress: 'fdfffffff',
+      money: '4455555',
       type: 'MOF',
     },
     {
       key: '3',
-      tip: '2000',
-      cash: '否',
-      recharge: '是',
-      market: '是',
-      price: '4455555',
-      type: 'HC',
+      username: 'John Brown',
+      time: 12132545646,
+      adress: 'fdfffffff',
+      money: '4455555',
+      type: 'MOF',
     },
     {
       key: '4',
-      tip: '2000',
-      cash: '否',
-      recharge: '是',
-      market: '是',
-      price: '4455555',
-      type: 'EXN',
+      username: 'John Brown',
+      time: 12132545646,
+      adress: 'fdfffffff',
+      money: '4455555',
+      type: 'HC',
     },
   ];
   showModal1 = () => {
@@ -408,7 +338,7 @@ class Investor extends Component {
       visible1: false,
     });
   };
-  delete = () => {
+  delete = record => {
     message.destroy();
     message.success('删除成功');
     console.log(123);
@@ -467,6 +397,9 @@ class Investor extends Component {
     this.formRef3 = form;
   };
   render() {
+    /*  const { from } = this.props; */
+    /*  const { getFieldDecorator } = this.props.form; */
+
     return (
       <div>
         <PageHeaderWrapper>
@@ -477,6 +410,7 @@ class Investor extends Component {
               wrappedComponentRef={this.saveFormRef1}
             ></FormOne>
           </div>
+
           <div>
             <div className={styles.add}>
               <Button type="primary" onClick={this.showModal1}>

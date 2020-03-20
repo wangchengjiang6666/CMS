@@ -7,6 +7,7 @@ export default [
       { path: '/user', redirect: '/user/login' },
       { path: '/user/login', name: 'login', component: './User/Login' },
       { path: '/user/register', name: 'register', component: './User/Register' },
+      { path: '/user/getpassword', name: 'getpassword', component: './User/GetPassWord' },
       {
         path: '/user/register-result',
         name: 'register.result',
@@ -17,6 +18,7 @@ export default [
       },
     ],
   },
+
   // app
   {
     path: '/',
@@ -103,6 +105,13 @@ export default [
             ], */
           },
 
+          {
+            path: '/userPage/tream',
+            name: 'tream',
+            icon: 'highlight',
+            component: './UsersPage/Search/tream.js',
+          },
+
           /*  {
             name: 'role',
             icon: 'highlight',
@@ -124,7 +133,32 @@ export default [
           }, */
         ],
       },
-      //账户管理
+      {
+        path: '/HC',
+        name: 'HC',
+        icon: 'form',
+        routes: [
+          {
+            path: '/HC/detail',
+            name: 'detail',
+            component: './HC/detail.js',
+          },
+        ],
+      },
+      //订单管理
+      {
+        path: '/treamPage',
+        icon: 'form',
+        name: 'treamPage',
+        routes: [
+          {
+            path: '/treamPage/treammes',
+            name: 'treammes',
+            component: './TreamPage/treammes.js',
+          },
+        ],
+      },
+      //钱包管理
       {
         path: '/accountPage',
         icon: 'form',
@@ -141,21 +175,8 @@ export default [
           { path: '/accountPage/token', name: 'token', component: './AccountPage/token.js' },
         ],
       },
-      //套餐管理
-      {
-        path: '/treamPage',
-        icon: 'form',
-        name: 'treamPage',
-        routes: [
-          {
-            path: '/treamPage/treammes',
-            name: 'treammes',
-            component: './TreamPage/treammes.js',
-          },
-          { path: '/treamPage/treamhe', name: 'treamhe', component: './TreamPage/treamhe.js' },
-        ],
-      },
-      //质押管理
+
+      /*  //质押管理
       {
         path: '/pledgePage',
         icon: 'form',
@@ -181,7 +202,7 @@ export default [
             component: './PesonalPage/media.js',
           },
         ],
-      },
+      }, */
       //数据统计
       {
         path: '/dataPage',
@@ -198,7 +219,7 @@ export default [
             name: 'withdraw',
             component: './DataPage/withdraw.js',
           },
-          {
+          /*  {
             path: '/dataPage/setmeal',
             name: 'setmeal',
             component: './DataPage/setmeal.js',
@@ -207,7 +228,7 @@ export default [
             path: '/dataPage/job',
             name: 'job',
             component: './DataPage/job.js',
-          },
+          }, */
         ],
       },
       //系统配置
@@ -237,7 +258,16 @@ export default [
             name: 'roleset',
             component: './System/roleset.js',
           },
+          {
+            path: '/system/production',
+            name: 'production',
+            component: './System/production.js',
+          },
         ],
+      },
+      {
+        path: '/UsersPage/Search/inputs',
+        component: './UsersPage/Search/inputs.js',
       },
       /*  //forms
       {
@@ -481,10 +511,7 @@ export default [
           },
         ],
       }, */
-      {
-        path: '/UsersPage/Search/detail',
-        component: './UsersPage/Search/detail.js',
-      },
+
       {
         component: '404',
       },

@@ -19,8 +19,231 @@ import {
   AutoComplete,
   Table,
   Divider,
+  message,
 } from 'antd';
-@Form.create()
+const FormOne = Form.create({ name: 'form1' })(
+  class extends Component {
+    checkNumber = (rule, value, callback) => {
+      if (value) {
+        let type = Number(value);
+        if (type >= 0) {
+          callback();
+        } else {
+          callback('输入数字');
+        }
+      }
+    };
+    render() {
+      const formItemLayout = {
+        labelCol: {
+          xs: { span: 12 },
+          sm: { span: 8 },
+        },
+        wrapperCol: {
+          xs: { span: 12 },
+          sm: { span: 10 },
+        },
+      };
+      const { getFieldDecorator } = this.props.form;
+      return (
+        <Modal
+          title="添加用户"
+          visible={this.props.visible1}
+          onOk={this.props.handleOk1}
+          onCancel={this.props.handleCancel1}
+          width="900px"
+        >
+          <div>
+            <Form {...formItemLayout} className={styles.down}>
+              <Form.Item label="用户名">
+                {getFieldDecorator('name', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入用户名',
+                    },
+                  ],
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item label="电话号码">
+                {getFieldDecorator('phone', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入正确的手机号码',
+                    },
+                  ],
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item label="密码">
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入密码',
+                    },
+                    {
+                      validator: this.props.validateToNextPassword,
+                    },
+                  ],
+                })(<Input.Password />)}
+              </Form.Item>
+              <Form.Item label="确认密码">
+                {getFieldDecorator('confirm', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请确认密码',
+                    },
+                    {
+                      validator: this.props.compareToFirstPassword,
+                    },
+                  ],
+                })(<Input.Password onBlur={this.props.handleConfirmBlur} />)}
+              </Form.Item>
+              <Form.Item label="角色">
+                {getFieldDecorator('role', {
+                  valueProName: 'checked',
+                  rules: [
+                    {
+                      required: true,
+                      message: '请选择角色',
+                    },
+                  ],
+                })(
+                  <Checkbox.Group style={{ width: '100%' }} onChange={this.props.Changebox1}>
+                    <Row className={styles.row}>
+                      <Col span={8}>
+                        <Checkbox value="A">群主</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="B">管理员</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="C">超级管理员</Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox value="C">超级客户</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="D">普通客户</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="E">观察者</Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
+                )}
+              </Form.Item>
+            </Form>
+          </div>
+        </Modal>
+      );
+    }
+  }
+);
+const FormTwo = Form.create({ name: 'form2' })(
+  class extends Component {
+    checkNumber = (rule, value, callback) => {
+      if (value) {
+        let type = Number(value);
+        if (type >= 0) {
+          callback();
+        } else {
+          callback('输入数字');
+        }
+      }
+    };
+    render() {
+      const formItemLayout = {
+        labelCol: {
+          xs: { span: 12 },
+          sm: { span: 8 },
+        },
+        wrapperCol: {
+          xs: { span: 12 },
+          sm: { span: 10 },
+        },
+      };
+      const { getFieldDecorator } = this.props.form;
+      return (
+        <Modal
+          title="修改用户角色"
+          visible={this.props.visible2}
+          onOk={this.props.handleOk2}
+          onCancel={this.props.handleCancel2}
+          width="900px"
+        >
+          <div>
+            <Form {...formItemLayout} className={styles.down}>
+              <Form.Item label="用户名">
+                {getFieldDecorator('username', {
+                  initialValue: this.props.layRecord ? this.props.layRecord.name : '',
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入用户名',
+                    },
+                  ],
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item label="现有角色">
+                {getFieldDecorator('nowRole', {
+                  initialValue: this.props.layRecord ? this.props.layRecord.menuPre : '',
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入正确的手机号码',
+                    },
+                  ],
+                })(<Input />)}
+              </Form.Item>
+
+              <Form.Item label="新角色">
+                {getFieldDecorator('nowrole', {
+                  valueProName: 'checked',
+                  rules: [
+                    {
+                      required: true,
+                      message: '请选择角色',
+                    },
+                  ],
+                })(
+                  <Checkbox.Group style={{ width: '100%' }} onChange={this.props.Changebox2}>
+                    <Row className={styles.row}>
+                      <Col span={8}>
+                        <Checkbox value="A">群主</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="B">管理员</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="C">超级管理员</Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox value="D">超级客户</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="E">普通客户</Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox value="F">观察者</Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
+                )}
+              </Form.Item>
+            </Form>
+          </div>
+        </Modal>
+      );
+    }
+  }
+);
 class Backusers extends Component {
   //用户权限
   // plainOptions = ['查看', '编辑', '添加', '删除'];
@@ -47,15 +270,17 @@ class Backusers extends Component {
       title: '操作',
       render: (text, record) => {
         return (
-          <Fragment>
-            <Btn meths={this.showModal2} record={record} type="1">
-              <a>修改</a>
-            </Btn>
-            <Divider type="vertical" />
-            <Btn meths={this.delete} record={record} type="3">
-              <a>删除</a>
-            </Btn>
-          </Fragment>
+          <div className="action">
+            <Fragment>
+              <Btn meths={this.showModal2} record={record} type="1">
+                <a>修改</a>
+              </Btn>
+              <Divider type="vertical" />
+              <Btn meths={this.delete} record={record} type="3">
+                <a>删除</a>
+              </Btn>
+            </Fragment>
+          </div>
         );
       },
     },
@@ -179,7 +404,10 @@ class Backusers extends Component {
       });
     }
   }; */
-  Changebox(checkedValues) {
+  Changebox1(checkedValues) {
+    console.log(checkedValues);
+  }
+  Changebox2(checkedValues) {
     console.log(checkedValues);
   }
   handleChange1 = e => {
@@ -199,7 +427,7 @@ class Backusers extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
@@ -207,12 +435,13 @@ class Backusers extends Component {
   };
   handleConfirmBlur = e => {
     const { value } = e.target;
+    console.log(value);
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
   compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
+    console.log(value);
+    if (value && value !== this.formRef1.props.form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
@@ -220,9 +449,9 @@ class Backusers extends Component {
   };
 
   validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props;
+    console.log(value);
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
+      this.formRef1.props.form.validateFields(['confirm'], { force: true });
     }
     callback();
   };
@@ -237,6 +466,7 @@ class Backusers extends Component {
     });
   }
   showModal1 = () => {
+    this.formRef1.props.form.resetFields();
     this.setState({
       visible1: true,
     });
@@ -244,6 +474,14 @@ class Backusers extends Component {
 
   handleOk1 = e => {
     console.log(e);
+    console.log(this.formRef1.props.form);
+    e.preventDefault();
+    this.formRef1.props.form.validateFields((err, values) => {
+      console.log(values);
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
     this.setState({
       visible1: false,
     });
@@ -256,7 +494,7 @@ class Backusers extends Component {
     });
   };
   showModal2 = record => {
-    console.log(record);
+    this.formRef2.props.form.resetFields();
     this.setState({
       visible2: true,
       layRecord: record,
@@ -265,6 +503,12 @@ class Backusers extends Component {
 
   handleOk2 = e => {
     console.log(e);
+    e.preventDefault();
+    this.formRef2.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
     this.setState({
       visible2: false,
     });
@@ -304,12 +548,17 @@ class Backusers extends Component {
   };
   //删除
   delete = id => {
+    message.destroy();
+    message.success('删除成功');
     console.log(id);
   };
-  //设置默认值
-
+  saveFormRef1 = form => {
+    this.formRef1 = form;
+  };
+  saveFormRef2 = form => {
+    this.formRef2 = form;
+  };
   render() {
-    this.props.form;
     const { loading, selectedRowKeys, autoCompleteResult } = this.state;
     const rowSelection = {
       selectedRowKeys,
@@ -328,17 +577,6 @@ class Backusers extends Component {
     };
     const hasSelected = selectedRowKeys.length > 0;
 
-    const { getFieldDecorator } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 12 },
-        sm: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 12 },
-        sm: { span: 10 },
-      },
-    };
     return (
       <div>
         <PageHeaderWrapper>
@@ -388,198 +626,24 @@ class Backusers extends Component {
             />
           </div>
         </PageHeaderWrapper>
-        <Modal
-          title="添加用户"
-          visible={this.state.visible1}
-          onOk={this.handleOk1}
-          onCancel={this.handleCancel1}
-          width="900px"
-        >
-          <div>
-            <Form {...formItemLayout} onSubmit={this.handleSubmit} className={styles.down}>
-              <Form.Item label="用户名">
-                {getFieldDecorator('name', {
-                  rules: [
-                    {
-                      type: 'text',
-                      message: '请输入用户名',
-                    },
-                    {
-                      required: true,
-                      message: '请输入用户名',
-                    },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="电话号码">
-                {getFieldDecorator('phone', {
-                  rules: [
-                    {
-                      type: 'number',
-                      message: '请输入正确的手机号码',
-                    },
-                    {
-                      required: true,
-                      message: '请输入正确的手机号码',
-                    },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="密码">
-                {getFieldDecorator('password', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入正确的手机号码',
-                    },
-                    {
-                      validator: this.validateToNextPassword,
-                    },
-                  ],
-                })(<Input.Password />)}
-              </Form.Item>
-              <Form.Item label="确认密码">
-                {getFieldDecorator('confirm', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请确认密码',
-                    },
-                    {
-                      validator: this.compareToFirstPassword,
-                    },
-                  ],
-                })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-              </Form.Item>
-              <Form.Item label="角色">
-                {getFieldDecorator('role', {
-                  valueProName: 'checked',
-                  rules: [
-                    {
-                      required: true,
-                      message: '请选择角色',
-                    },
-                  ],
-                })(
-                  <Checkbox.Group style={{ width: '100%' }} onChange={this.Changebox}>
-                    <Row className={styles.row}>
-                      <Col span={8}>
-                        <Checkbox value="A">群主</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="B">管理员</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="C">超级管理员</Checkbox>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col span={8}>
-                        <Checkbox value="C">超级客户</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="D">普通客户</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="E">观察者</Checkbox>
-                      </Col>
-                    </Row>
-                  </Checkbox.Group>
-                )}
-              </Form.Item>
-            </Form>
-            {/*  <div>
-              <h3>权限分配</h3>
-              <div>
-                <Table
-                  rowSelection={rowSelection2}
-                  columns={this.columns2}
-                  dataSource={this.state.data2}
-                  pagination={false}
-                />
-              </div>
-            </div> */}
-          </div>
-        </Modal>
-        <Modal
-          title="修改用户角色"
-          visible={this.state.visible2}
-          onOk={this.handleOk2}
-          onCancel={this.handleCancel2}
-          width="900px"
-        >
-          <div>
-            <Form {...formItemLayout} onSubmit={this.handleSubmit} className={styles.down}>
-              <Form.Item label="用户名">
-                {getFieldDecorator('username', {
-                  initialValue: this.state.layRecord ? this.state.layRecord.name : '',
-                  rules: [
-                    {
-                      type: 'text',
-                      message: '请输入用户名',
-                    },
-                    {
-                      required: true,
-                      message: '请输入用户名',
-                    },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="现有角色">
-                {getFieldDecorator('nowRole', {
-                  initialValue: this.state.layRecord ? this.state.layRecord.menuPre : '',
-                  rules: [
-                    {
-                      type: 'text',
-                      message: '请输入正确的手机号码',
-                    },
-                    {
-                      required: true,
-                      message: '请输入正确的手机号码',
-                    },
-                  ],
-                })(<Input />)}
-              </Form.Item>
-
-              <Form.Item label="新角色">
-                {getFieldDecorator('newrole', {
-                  valueProName: 'checked',
-                  rules: [
-                    {
-                      required: true,
-                      message: '请选择角色',
-                    },
-                  ],
-                })(
-                  <Checkbox.Group style={{ width: '100%' }} onChange={this.Changebox}>
-                    <Row className={styles.row}>
-                      <Col span={8}>
-                        <Checkbox value="A">群主</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="B">管理员</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="C">超级管理员</Checkbox>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col span={8}>
-                        <Checkbox value="C">超级客户</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="D">普通客户</Checkbox>
-                      </Col>
-                      <Col span={8}>
-                        <Checkbox value="E">观察者</Checkbox>
-                      </Col>
-                    </Row>
-                  </Checkbox.Group>
-                )}
-              </Form.Item>
-            </Form>
-          </div>
-        </Modal>
+        <FormOne
+          visible1={this.state.visible1}
+          handleOk1={this.handleOk1}
+          handleCancel1={this.handleCancel1}
+          wrappedComponentRef={this.saveFormRef1}
+          validateToNextPassword={this.validateToNextPassword}
+          compareToFirstPassword={this.compareToFirstPassword}
+          handleConfirmBlur={this.handleConfirmBlur}
+          Changebox={this.Changebox1}
+        />
+        <FormTwo
+          visible2={this.state.visible2}
+          handleOk2={this.handleOk2}
+          handleCancel2={this.handleCancel2}
+          wrappedComponentRef={this.saveFormRef2}
+          layRecord={this.state.layRecord}
+          Changebox={this.Changebox2}
+        />
       </div>
     );
   }

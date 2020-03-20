@@ -94,6 +94,7 @@ class Analysis extends Component {
       visitData,
       visitData2,
       salesData,
+      newData,
       searchData,
       offlineData,
       offlineChartData,
@@ -102,6 +103,7 @@ class Analysis extends Component {
       salesTypeDataOffline,
     } = chart;
     console.log(salesData);
+    console.log(offlineData, offlineChartData);
     let salesPieData;
     if (salesType === 'all') {
       salesPieData = salesTypeData;
@@ -133,14 +135,14 @@ class Analysis extends Component {
         <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
-            salesData={salesData}
+            salesData={newData}
             isActive={this.isActive}
             handleRangePickerChange={this.handleRangePickerChange}
             loading={loading}
             selectDate={this.selectDate}
           />
         </Suspense>
-        <div className={styles.twoColLayout}>
+        {/*  <div className={styles.twoColLayout}>
           <Row gutter={24} type="flex">
             <Col xl={12} lg={24} md={24} sm={24} xs={24}>
               <Suspense fallback={null}>
@@ -165,7 +167,7 @@ class Analysis extends Component {
               </Suspense>
             </Col>
           </Row>
-        </div>
+        </div> */}
         <Suspense fallback={null}>
           <OfflineData
             activeKey={activeKey}

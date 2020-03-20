@@ -42,7 +42,7 @@ const OfflineData = memo(
       bordered={false}
       style={{ marginTop: 32 }}
     >
-      <Tabs activeKey={activeKey} onChange={handleTabChange}>
+      {/* <Tabs activeKey={activeKey} onChange={handleTabChange}>
         {offlineData.map(shop => (
           <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
             <div style={{ padding: '0 24px' }}>
@@ -57,7 +57,17 @@ const OfflineData = memo(
             </div>
           </TabPane>
         ))}
-      </Tabs>
+      </Tabs> */}
+      <div style={{ padding: '0 24px' }}>
+        <TimelineChart
+          height={400}
+          data={offlineChartData}
+          titleMap={{
+            y1: formatMessage({ id: 'app.analysis.traffic' }),
+            y2: formatMessage({ id: 'app.analysis.payments' }),
+          }}
+        />
+      </div>
     </Card>
   )
 );

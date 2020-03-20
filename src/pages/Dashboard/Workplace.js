@@ -48,6 +48,7 @@ const links = [
 class Workplace extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
+
     dispatch({
       type: 'user/fetchCurrent',
     });
@@ -61,7 +62,9 @@ class Workplace extends PureComponent {
       type: 'chart/fetch',
     });
   }
-
+  componentDidUpdate() {
+    console.log(this.props);
+  }
   renderActivities() {
     const {
       activities: { list },
