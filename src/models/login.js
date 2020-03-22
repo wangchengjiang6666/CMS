@@ -9,7 +9,7 @@ export default {
   namespace: 'login',
   state: {
     status: undefined,
-    btnList: ['1_1-1', '1_1-2', '2_1-1', '2_2-2', '2_2-3', '7_3-1'],
+    btnList: ['2', '2_1', '2_1-1', '2_1-2', '2_1-3', '2_1-4', '3_1-1'],
   },
   effects: {
     *login({ payload }, { call, put }) {
@@ -75,6 +75,7 @@ export default {
   reducers: {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);
+      console.log(state);
       return {
         ...state,
         status: payload.status,

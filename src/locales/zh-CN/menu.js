@@ -81,4 +81,8 @@ export default {
   'menu.system.production': '产品管理',
   'menu.HC': 'HC',
   'menu.HC.detail': '用户详情',
+  'menu.finance': '财务管理',
+  'menu.finance.service': '提现-客服审核',
+  'menu.finance.client': '提现-商户端',
+  'menu.finance.rechargeClient': '充值-商户端',
 };

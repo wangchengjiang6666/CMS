@@ -86,6 +86,13 @@ export default {
         notices: state.notices.filter(item => item.type !== payload),
       };
     },
+    setTreeState(state, action) {
+      console.log(action);
+      return {
+        ...state,
+        treeState: action.payload,
+      };
+    },
   },
 
   subscriptions: {

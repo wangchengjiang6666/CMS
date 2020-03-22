@@ -39,10 +39,11 @@ class UserLayout extends Component {
     const {
       dispatch,
       route: { routes, authority },
+      btnList,
     } = this.props;
     dispatch({
       type: 'menu/getMenuData',
-      payload: { routes, authority },
+      payload: { routes, authority, btnList },
     });
   }
 
@@ -76,7 +77,8 @@ class UserLayout extends Component {
   }
 }
 
-export default connect(({ menu: menuModel }) => ({
+export default connect(({ menu: menuModel, login }) => ({
   menuData: menuModel.menuData,
   breadcrumbNameMap: menuModel.breadcrumbNameMap,
+  btnList: login.btnList,
 }))(UserLayout);

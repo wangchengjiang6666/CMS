@@ -56,7 +56,9 @@ class Btn extends Component {
       }
     });
   }
-  componentDidUpdate() {}
+  componentDidMount() {
+    console.log(this.props.btnList);
+  }
   isRun = () => {
     message.destroy();
     let flog = this.state.passBtn.includes(this.props.type);
@@ -70,8 +72,8 @@ class Btn extends Component {
     return <div onClick={this.isRun}>{this.props.children}</div>;
   }
 }
-export default connect(({ login }) => {
+export default connect(({ menu }) => {
   return {
-    btnList: login.btnList,
+    btnList: menu.actionPre,
   };
 })(withRouter(Btn));

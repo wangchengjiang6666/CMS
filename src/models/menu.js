@@ -3,7 +3,6 @@ import isEqual from 'lodash/isEqual';
 import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import { menu } from '../defaultSettings';
-import { queryRoutes } from '@/services/user';
 
 const { check } = Authorized;
 
@@ -104,14 +103,9 @@ const getBreadcrumbNameMap = menuData => {
   { key: 2, mp: '账户管理' },
   { key: 21, mp: '投资账户' },
   { key: 22, mp: '奖金账户' },
+  ["1_1_1", "2_1_1", "1_1_3", "1_1_2", "2_1_2"]
 ] */
-const mess = [
-  { key: '1', mp: '用户管理' },
-  { key: '1_1', mp: '用户查询' },
-  { key: '2', mp: '账户管理' },
-  { key: '2_1', mp: '投资账户' },
-  { key: '2_2', mp: '奖金账户' },
-];
+const mess = ['2', '2_1', '2_1-1', '2_1-2', '2_1-3', '2_1-4', '3_1-1'];
 let allroutes = [
   {
     key: '0',
@@ -284,7 +278,7 @@ let allroutes = [
   },
 ];
 const fileroute = mess => {
-  let arr = [];
+  /*  let arr = [];
   let newmess = mess.map(e => e.key);
   console.log(newmess);
   allroutes.forEach((item, index) => {
@@ -304,82 +298,77 @@ const fileroute = mess => {
     }
   });
   allroutes = arr;
+  console.log(allroutes); */
+  let arr = [];
+  let arr1 = []; //一级菜单
+  let arr2 = []; //二级菜单
+  let arr3 = []; //操作权限
+  mess.forEach(e => {
+    if (e.length === 5) {
+      arr1.includes(e.split('_')[0]) ? '' : arr1.push(e.split('_')[0]);
+      arr2.includes(e.split('-')[0]) ? '' : arr2.push(e.split('-')[0]);
+      arr3.push(e);
+    }
+  });
+  allroutes.forEach((item, index) => {
+    if (arr1.includes(item.key) || item.key == '0') {
+      arr.push(item);
+    }
+  });
+  arr.forEach((v, index) => {
+    let arr4 = [];
+    if (v.routes) {
+      v.routes.forEach((i, j) => {
+        if (arr2.includes(i.key)) {
+          arr4.push(i);
+        }
+      });
+      v.routes = arr4;
+    }
+  });
+  console.log(arr1, arr2, arr3, arr);
+  allroutes = arr;
   console.log(allroutes);
+  return {
+    alloures: allroutes,
+    stairMenu: arr1,
+    secondMenu: arr2,
+    actionPre: arr3,
+  };
 };
-fileroute(mess);
+
+//fileroute(mess);
 //------------------------------------------------------------------
 const memoizeOneGetBreadcrumbNameMap = memoizeOne(getBreadcrumbNameMap, isEqual);
-const newMenus = [
-  {
-    path: '/form',
-    icon: 'form',
-    name: '表单页',
-    locale: 'menu.form',
-    children: [
-      {
-        path: '/form/basic-form',
-        name: '基础表单',
-        exact: true,
-        locale: 'menu.form.basicform',
-      },
-      {
-        path: '/form/step-form',
-        name: '分步表单',
-        hideroutesInMenu: true,
-        locale: 'menu.form.stepform',
-        children: [
-          {
-            path: '/form/step-form/info',
-            name: '分步表单（填写转账信息）',
-            exact: true,
-            locale: 'menu.form.stepform.info',
-          },
-          {
-            path: '/form/step-form/confirm',
-            name: '分步表单（确认转账信息）',
-            exact: true,
-            locale: 'menu.form.stepform.confirm',
-          },
-          {
-            path: '/form/step-form/result',
-            name: '分步表单（完成）',
-            exact: true,
-            locale: 'menu.form.stepform.result',
-          },
-        ],
-      },
-      {
-        path: '/form/advanced-form',
-        name: '高级表单',
-        exact: true,
-        locale: 'menu.form.advancedform',
-      },
-    ],
-  },
-];
+
 export default {
   namespace: 'menu',
-
   state: {
     menuData: [],
     routerData: [],
     breadcrumbNameMap: {},
   },
-
   effects: {
     *getMenuData({ payload }, { put }) {
       const { routes, authority, path } = payload;
-      //const { authority, path } = payload;
-      //const routes = allroutes;
+      /*  const { authority, path, btnList } = payload;
+      const routes = allroutes; */
       // console.log(routes);
       //console.log(allroutes);
+      //const filterRoutes = fileroute(btnList);
+      //console.log(routes);
       const originalMenuData = memoizeOneFormatter(routes, authority, path);
       const menuData = filterMenuData(originalMenuData);
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(originalMenuData);
       yield put({
         type: 'save',
         payload: { menuData, breadcrumbNameMap, routerData: routes },
-        //payload: { menuData: originalMenuData, breadcrumbNameMap, routerData: routes },
+        /*  payload: {
+          menuData: originalMenuData,
+          breadcrumbNameMap,
+          routerData: routes,
+          filterRoutes,
+        }, */
       });
     },
   },

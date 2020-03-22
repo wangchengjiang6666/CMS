@@ -231,6 +231,30 @@ export default [
           }, */
         ],
       },
+
+      //财务管理
+      {
+        path: '/finance',
+        icon: 'form',
+        name: 'finance',
+        routes: [
+          {
+            path: '/finance/service',
+            name: 'service',
+            component: './Finance/service.js',
+          },
+          {
+            path: '/finance/client',
+            name: 'client',
+            component: './Finance/client.js',
+          },
+          {
+            path: '/finance/rechargeClient',
+            name: 'rechargeClient',
+            component: './Finance/rechargeClient.js',
+          },
+        ],
+      },
       //系统配置
       {
         path: '/system',
